@@ -1,20 +1,23 @@
 FROM eclipse-temurin:20-jdk
 
+ARG GRADLE_VERSION=8.3
+
+RUN apt-get update && apt-get install -yq unzip
+
+RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && unzip gradle-${GRADLE_VERSION}-bin.zip \
+    && rm gradle-${GRADLE_VERSION}-bin.zip
+
+ENV GRADLE_HOME=/opt/gradle
+
+RUN mv gradle-${GRADLE_VERSION} ${GRADLE_HOME}
+
+ENV PATH=$PATH:$GRADLE_HOME/bin
+
 WORKDIR /app
 
-COPY app/gradle gradle
-COPY app/build.gradle.kts .
-COPY app/settings.gradle.kts .
-COPY app/gradlew .
+COPY /app .
 
-RUN ./gradlew --no-daemon dependencies
+RUN gradle installDist
 
-COPY app/src src
-COPY config config
-
-RUN ./gradlew --no-daemon build
-
-ENV JAVA_OPTS "-Xmx512M -Xms512M"
-EXPOSE 7070
-
-CMD java -jar build/libs/HexletJavalin-1.0-SNAPSHOT-all.jar
+CMD ./build/install/java-javalin-blog/bin/java-javalin-blog
