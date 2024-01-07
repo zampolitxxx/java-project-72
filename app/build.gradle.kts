@@ -2,6 +2,7 @@ plugins {
     application
     id("java")
     id("jacoco")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 application {
@@ -28,5 +29,10 @@ tasks.test {
 tasks.jacocoTestReport {
     reports {
         xml.required = true
+    }
+}
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "hexlet.code.App"
     }
 }
