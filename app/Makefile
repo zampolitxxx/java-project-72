@@ -7,7 +7,7 @@ clean:
 	./gradlew clean
 
 build:
-	./gradlew clean build
+	./gradlew clean shadowJar
 
 install:
 	./gradlew clean install
