@@ -22,7 +22,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.h2database/h2
     implementation("com.h2database:h2:2.2.224")
     implementation("io.javalin:javalin:5.6.3")
+    implementation("io.javalin:javalin-rendering:5.6.3")
     implementation("org.slf4j:slf4j-simple:2.0.10")
+    implementation("gg.jte:jte:3.1.6")
+
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
