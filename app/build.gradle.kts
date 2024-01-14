@@ -3,6 +3,7 @@ plugins {
     id("java")
     id("jacoco")
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.freefair.lombok") version "8.4"
 }
 
 application {
@@ -29,7 +30,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly("org.projectlombok:lombok:1.18.30")
+//    compileOnly("org.projectlombok:lombok:1.18.30")
 }
 
 

@@ -1,7 +1,7 @@
 package hexlet.code.model;
 
 import java.sql.Timestamp;
-import java.time.Instant;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,16 +11,13 @@ import lombok.ToString;
 @ToString
 public final class Url {
     private Long id;
-
-    @ToString.Include
     private String name;
     private Timestamp createdAt;
+    private Timestamp lastCheckDate;
+    private int status;
 
-    public Url(String name) {
+    public Url(String name, Timestamp createdAt) {
         this.name = name;
-    }
-
-    public Instant getCreatedAtToInstant() {
-        return this.createdAt.toInstant();
+        this.createdAt = createdAt;
     }
 }
