@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import hexlet.code.dto.urls.UrlPage;
+import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.FlashEnum;
 import hexlet.code.util.NamedRoutes;
@@ -72,7 +73,8 @@ public class UrlController {
     public static void show(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         Url url = UrlRepository.find(id).orElseThrow(NotFoundResponse::new);
-        UrlPage page = new UrlPage(url);
+        var urlChecks = UrlCheckRepository.filterByUrlId(url.getId());
+        UrlPage page = new UrlPage(url, urlChecks);
 
         var flash = (String) ctx.consumeSessionAttribute("flash");
         var flashType = (String) ctx.consumeSessionAttribute("flashType");
