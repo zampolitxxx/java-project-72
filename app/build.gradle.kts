@@ -32,6 +32,11 @@ dependencies {
     implementation("com.konghq:unirest-java:4.0.0-RC2")
     testImplementation("com.konghq:unirest-object-mappers-gson:4.2.6")
     implementation("com.konghq:unirest-objectmapper-jackson:4.2.6")
+    //MockWebServer
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/mockwebserver
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 
     //tests
     testImplementation("org.assertj:assertj-core:3.24.2")
