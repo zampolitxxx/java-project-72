@@ -15,6 +15,7 @@ import io.javalin.rendering.template.JavalinJte;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.ResourceCodeResolver;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class App {
 
     private static int getPort() {
@@ -43,25 +45,31 @@ public class App {
     }
 
     public static Javalin getApp() throws IOException, SQLException {
-        JavalinJte.init(createTemplateEngine());
+        Javalin app = null;
+        try {
+            JavalinJte.init(createTemplateEngine());
 
-        var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(getDatabaseUrl());
-        var dataSource = new HikariDataSource(hikariConfig);
-        var sql = readResourceFile("schema.sql");
-        try (var connection = dataSource.getConnection();
-             var statement = connection.createStatement()) {
-            statement.execute(sql);
+            var hikariConfig = new HikariConfig();
+            hikariConfig.setJdbcUrl(getDatabaseUrl());
+            var dataSource = new HikariDataSource(hikariConfig);
+            var sql = readResourceFile("schema.sql");
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.createStatement()) {
+                statement.execute(sql);
+            }
+            BaseRepositoty.dataSource = dataSource;
+            app = Javalin.create(config -> {
+                config.plugins.enableDevLogging();
+            });
+            app.get(NamedRoutes.rootPath(), RootController::index);
+            app.get(NamedRoutes.urlsPath(), UrlController::index);
+            app.post(NamedRoutes.urlsPath(), UrlController::create);
+            app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
+            app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
+
+        } catch (Exception e) {
+            log.debug("Error in the ", e);
         }
-        BaseRepositoty.dataSource = dataSource;
-        var app = Javalin.create(config -> {
-            config.plugins.enableDevLogging();
-        });
-        app.get(NamedRoutes.rootPath(), RootController::index);
-        app.get(NamedRoutes.urlsPath(), UrlController::index);
-        app.post(NamedRoutes.urlsPath(), UrlController::create);
-        app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
-        app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
         return app;
     }
 
