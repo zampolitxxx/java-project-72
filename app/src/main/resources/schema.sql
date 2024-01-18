@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS urls;
 DROP TABLE IF EXISTS url_checks;
+DROP TABLE IF EXISTS urls;
+
 
 create table urls
 (

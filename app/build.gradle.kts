@@ -37,7 +37,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/mockwebserver
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-
+    //jsoup
+    implementation("org.jsoup:jsoup:1.17.1")
     //tests
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")

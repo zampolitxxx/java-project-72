@@ -1,6 +1,5 @@
 @import hexlet.code.dto.urls.UrlPage
 @import hexlet.code.util.NamedRoutes
-@import java.time.format.DateTimeFormatter
 
 @param UrlPage page
 
@@ -31,16 +30,22 @@ content = @`
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Дата проверки</th>
                     <th scope="col">Код ответа</th>
+                    <th scope="col">title</th>
+                    <th scope="col">h1</th>
+                    <th scope="col">description</th>
+                    <th scope="col">Дата проверки</th>
                 </tr>
             </thead>
             <tbody>
             @for(var item : page.getUrlChecks())
                 <tr>
                     <td>${item.getId()}</td>
-                    <td>${item.getCreatedAt().toString()}</td>
                     <td>${item.getStatusCode()}</td>
+                    <td>${item.getTitle()}</td>
+                    <td>${item.getH1()}</td>
+                    <td>${item.getDescription()}</td>
+                    <td>${item.getCreatedAt().toString()}</td>
                 </tr>
             @endfor
             </tbody>
