@@ -68,7 +68,7 @@ public class App {
             app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
 
         } catch (Exception e) {
-            log.debug("Error in the ", e);
+            e.printStackTrace();
         }
         return app;
     }
