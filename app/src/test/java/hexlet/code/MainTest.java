@@ -22,7 +22,7 @@ import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AppTest {
+class MainTest {
 
     private static Javalin app;
     private static MockWebServer server;
