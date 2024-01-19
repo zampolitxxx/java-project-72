@@ -14,7 +14,7 @@ public class UrlRepository extends BaseRepositoty {
     private static final String FETCH_ALL = """
             SELECT urls.id as id,
             urls.name as name,
-            urls.created_at as created_at,
+            urls.created_at as created_at
             FROM urls;
             """;
     private static final  String CHECK_IF_EXISTS = "SELECT 1 FROM urls WHERE name = ?;";
