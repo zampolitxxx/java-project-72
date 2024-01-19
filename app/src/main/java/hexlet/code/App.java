@@ -45,8 +45,7 @@ public class App {
     }
 
     public static Javalin getApp() throws IOException, SQLException {
-        Javalin app = null;
-        try {
+        Javalin app;
             JavalinJte.init(createTemplateEngine());
 
             var hikariConfig = new HikariConfig();
@@ -67,9 +66,6 @@ public class App {
             app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
             app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return app;
     }
 
