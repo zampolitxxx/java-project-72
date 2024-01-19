@@ -21,6 +21,8 @@ repositories {
 }
 
 dependencies {
+    //driver for postgresql
+    implementation("org.postgresql:postgresql:42.7.1")
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation("com.zaxxer:HikariCP:5.1.0")
     // https://mvnrepository.com/artifact/com.h2database/h2
