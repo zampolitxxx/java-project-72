@@ -22,7 +22,7 @@ public class UrlCheckRepository extends BaseRepositoty{
             h1,
             title,
             description,
-            createdAt,
+            createdAt 
             FROM url_checks WHERE urlId = ?;
             """;
     public static List<UrlCheck> filterByUrlId(Long urlId) throws SQLException {
