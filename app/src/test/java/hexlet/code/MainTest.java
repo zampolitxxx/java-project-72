@@ -33,8 +33,13 @@ class MainTest {
 
         MockResponse mockedResponse1 = new MockResponse()
                 .setBody(readFixt("urlCheck1.html")).setResponseCode(200);
+        MockResponse mockedResponse2 = new MockResponse()
+                .setBody(readFixt("urlCheck2.html")).setResponseCode(200);
+        MockResponse mockedResponse3 = new MockResponse().setResponseCode(404);
 
         server.enqueue(mockedResponse1);
+        server.enqueue(mockedResponse2);
+        server.enqueue(mockedResponse3);
         server.start();
     }
 
