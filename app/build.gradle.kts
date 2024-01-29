@@ -27,9 +27,9 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.1.0")
     // https://mvnrepository.com/artifact/com.h2database/h2
     implementation("com.h2database:h2:2.2.224")
-    implementation("io.javalin:javalin:5.6.3")
-    implementation("io.javalin:javalin-rendering:5.6.3")
-    implementation("io.javalin:javalin-bundle:5.6.3")
+    implementation("io.javalin:javalin:5.6.1")
+    implementation("io.javalin:javalin-rendering:5.6.1")
+    implementation("io.javalin:javalin-bundle:5.6.1")
     implementation("org.slf4j:slf4j-simple:2.0.10")
     implementation("gg.jte:jte:3.1.6")
     // Unirest
