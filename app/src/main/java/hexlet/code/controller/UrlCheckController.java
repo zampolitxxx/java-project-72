@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 
 public class UrlCheckController {
     private static final String ERROR_MESSAGE = "Некорректный адрес";
-    private static final String SUCCESSFUL_MESSAGE = "Страница успешно добавлена";
+    private static final String SUCCESSFUL_MESSAGE = "Страница успешно проверена";
 
     public static void create(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();

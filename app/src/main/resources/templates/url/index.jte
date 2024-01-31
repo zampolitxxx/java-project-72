@@ -22,6 +22,17 @@ content = @`
                 <tr>
                     <td>${item.getId()}</td>
                     <td><a href="${NamedRoutes.urlPath(item.getId())}">${item.getName()}</a></td>
+                    @if(item.getLastCheckDate() != null)
+                        <td>${item.getLastCheckDate().toString()}</td>
+                    @else
+                        <td></td>
+                    @endif
+
+                    @if(item.getStatus() != 0)
+                        <td>${item.getStatus()}</td>
+                    @else
+                        <td></td>
+                    @endif
                 </tr>
             @endfor
             </tbody>
