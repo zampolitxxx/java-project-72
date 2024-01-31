@@ -21,6 +21,7 @@ content = @`
                     <tbody>
                     @for(var item : page.getUrls())
                         <tr>
+                            <!--Страница /urls-->
                             <td>${item.getId()}</td>
                             <td><a href="${NamedRoutes.urlPath(item.getId())}">${item.getName()}</a></td>
                             @if(item.getLastCheckDate() != null)
@@ -34,6 +35,7 @@ content = @`
                             @else
                                 <td></td>
                             @endif
+
                         </tr>
                     @endfor
                     </tbody>

@@ -90,6 +90,16 @@ public class UrlRepository extends BaseRepositoty {
 
     private static Url getUrlModelForEntities(ResultSet resultSet) throws SQLException {
         var url = getUrlModelFromResulSet(resultSet);
+        var lastCheckDate = resultSet.getTimestamp("last_check_date");
+        if(!resultSet.wasNull()) {
+            url.setLastCheckDate(lastCheckDate);
+        }
+
+        var status = resultSet.getInt("last_check_status_code");
+
+        if(!resultSet.wasNull()) {
+            url.setStatus(status);
+        }
         return url;
     }
 
