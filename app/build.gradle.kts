@@ -3,6 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     application
+    id("checkstyle")
     id("java")
     id("jacoco")
     id("com.github.johnrengelman.shadow") version "8.1.1"
