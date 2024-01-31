@@ -12,10 +12,10 @@ create table urls
 CREATE TABLE url_checks
 (
 id          SERIAL PRIMARY KEY,
-urlId      SERIAL REFERENCES urls (id) ON DELETE CASCADE,
-statusCode INT                         NOT NULL,
+url_id      SERIAL REFERENCES urls (id) ON DELETE CASCADE,
+status_code INT                         NOT NULL,
 h1          VARCHAR                     NOT NULL,
 title       VARCHAR                     NOT NULL,
 description VARCHAR                     NOT NULL,
-createdAt  TIMESTAMP WITH TIME ZONE    NOT NULL
+created_at  TIMESTAMP WITH TIME ZONE    NOT NULL
 );
