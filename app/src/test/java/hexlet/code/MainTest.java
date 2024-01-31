@@ -59,7 +59,7 @@ class MainTest {
 
     private static String readFixt(String fileName) throws IOException {
         Path filePath = Paths.get("src", "test", "resources", "fixtures", fileName)
-                .toAbsolutePath().normalize();;
+                .toAbsolutePath().normalize();
         return Files.readString(filePath).trim();
     }
 

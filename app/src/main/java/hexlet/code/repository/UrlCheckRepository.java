@@ -5,28 +5,27 @@ import hexlet.code.model.UrlCheck;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UrlCheckRepository extends BaseRepositoty{
+public class UrlCheckRepository extends BaseRepositoty {
     private static final String SAVE_ONE_TEMPLATE = """
             INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
             VALUES(?,?,?,?,?,?);
             """;
     private static final String FETCH_ALL_BY_URL_ID_TEMPLATE = """
-            SELECT 
+            SELECT
             id,
             url_id,
             status_code,
             h1,
             title,
             description,
-            created_at 
+            created_at
             FROM url_checks WHERE url_id = ?;
             """;
     public static List<UrlCheck> filterByUrlId(Long url_id) throws SQLException {
-        try (var conn = dataSource.getConnection();
+            try (var conn = dataSource.getConnection();
         var prepareStatement = conn.prepareStatement(FETCH_ALL_BY_URL_ID_TEMPLATE)) {
             prepareStatement.setLong(1, url_id);
             prepareStatement.execute();
@@ -35,7 +34,7 @@ public class UrlCheckRepository extends BaseRepositoty{
         }
     }
     public static void save(UrlCheck urlCheck) throws SQLException {
-        try (var conn = dataSource.getConnection();
+            try (var conn = dataSource.getConnection();
         var prepareStatement = conn.prepareStatement(SAVE_ONE_TEMPLATE, Statement.RETURN_GENERATED_KEYS)) {
         prepareStatement.setLong(1, urlCheck.getUrlId());
         prepareStatement.setInt(2, urlCheck.getStatusCode());
