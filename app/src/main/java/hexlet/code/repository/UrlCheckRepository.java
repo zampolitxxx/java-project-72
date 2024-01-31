@@ -24,32 +24,32 @@ public class UrlCheckRepository extends BaseRepositoty {
             created_at
             FROM url_checks WHERE url_id = ?;
             """;
-    public static List<UrlCheck> filterByUrlId(Long url_id) throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(FETCH_ALL_BY_URL_ID_TEMPLATE)) {
-            prepareStatement.setLong(1, url_id);
+    public static List<UrlCheck> filterByUrlId(Long urlId) throws SQLException {
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(FETCH_ALL_BY_URL_ID_TEMPLATE)) {
+            prepareStatement.setLong(1, urlId);
             prepareStatement.execute();
             var resultSet = prepareStatement.getResultSet();
             return getEnririesFromResultSet(resultSet);
         }
     }
     public static void save(UrlCheck urlCheck) throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(SAVE_ONE_TEMPLATE, Statement.RETURN_GENERATED_KEYS)) {
-        prepareStatement.setLong(1, urlCheck.getUrlId());
-        prepareStatement.setInt(2, urlCheck.getStatusCode());
-        prepareStatement.setString(3, urlCheck.getH1());
-        prepareStatement.setString(4, urlCheck.getTitle());
-        prepareStatement.setString(5, urlCheck.getDescription());
-        prepareStatement.setTimestamp(6, urlCheck.getCreatedAt());
-        prepareStatement.executeUpdate();
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(SAVE_ONE_TEMPLATE, Statement.RETURN_GENERATED_KEYS)) {
+            prepareStatement.setLong(1, urlCheck.getUrlId());
+            prepareStatement.setInt(2, urlCheck.getStatusCode());
+            prepareStatement.setString(3, urlCheck.getH1());
+            prepareStatement.setString(4, urlCheck.getTitle());
+            prepareStatement.setString(5, urlCheck.getDescription());
+            prepareStatement.setTimestamp(6, urlCheck.getCreatedAt());
+            prepareStatement.executeUpdate();
 
-        ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            urlCheck.setId(generatedKeys.getLong(1));
-        } else {
-            throw new SQLException("DB have not id");
-        }
+            ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                urlCheck.setId(generatedKeys.getLong(1));
+            } else {
+                throw new SQLException("DB have not id");
+            }
         }
     }
 

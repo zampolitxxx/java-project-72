@@ -31,8 +31,8 @@ public class UrlRepository extends BaseRepositoty {
     private static final String FETCH_ONE_TEMPLATE = "SELECT id, name, created_at FROM urls WHERE id = ? LIMIT 1;";
 
     public static Boolean exists(String name) throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(CHECK_IF_EXISTS)) {
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(CHECK_IF_EXISTS)) {
             prepareStatement.setString(1, name);
             prepareStatement.execute();
             var resultSet = prepareStatement.getResultSet();
@@ -41,8 +41,8 @@ public class UrlRepository extends BaseRepositoty {
     }
 
     public static void save(Url url) throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(SAVE_ONE, Statement.RETURN_GENERATED_KEYS)) {
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(SAVE_ONE, Statement.RETURN_GENERATED_KEYS)) {
             prepareStatement.setString(1, url.getName());
             prepareStatement.setTimestamp(2, url.getCreatedAt());
             prepareStatement.executeUpdate();
@@ -57,8 +57,8 @@ public class UrlRepository extends BaseRepositoty {
     }
 
     public static List<Url> getEntities() throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(FETCH_ALL)) {
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(FETCH_ALL)) {
             prepareStatement.execute();
             var resultSet = prepareStatement.getResultSet();
             List<Url> result = new ArrayList<>();
@@ -72,8 +72,8 @@ public class UrlRepository extends BaseRepositoty {
     }
 
     public static Optional<Url> find(Long id) throws SQLException {
-            try (var conn = dataSource.getConnection();
-        var prepareStatement = conn.prepareStatement(FETCH_ONE_TEMPLATE)) {
+        try (var conn = dataSource.getConnection();
+            var prepareStatement = conn.prepareStatement(FETCH_ONE_TEMPLATE)) {
             prepareStatement.setLong(1, id);
             prepareStatement.execute();
 

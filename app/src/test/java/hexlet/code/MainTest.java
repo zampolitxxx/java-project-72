@@ -65,7 +65,7 @@ class MainTest {
 
     @Test
     void testMainPage() {
-        JavalinTest.test(app, ((server, client) -> {
+        JavalinTest.test(app, ((serv, client) -> {
             var response = client.get(NamedRoutes.rootPath());
             assertThat(response.code()).isEqualTo(200);
             assertThat(response.body()).isNotNull();
@@ -75,7 +75,7 @@ class MainTest {
 
     @Test
     public void testUrl() {
-        JavalinTest.test(app, (server, client) -> {
+        JavalinTest.test(app, (serv, client) -> {
             var requestBody = "url=https://example.com";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
@@ -96,7 +96,7 @@ class MainTest {
 
     @Test
     public void testBadUrl() {
-        JavalinTest.test(app, (server, client) -> {
+        JavalinTest.test(app, (serv, client) -> {
             var requestBody = "url=badUrl.com";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
@@ -115,7 +115,7 @@ class MainTest {
         var url = new Url("https://example.com", Timestamp.from(ZonedDateTime.now().toInstant()));
         UrlRepository.save(url);
 
-        JavalinTest.test(app, (server, client) -> {
+        JavalinTest.test(app, (serv, client) -> {
             var response = client.get(NamedRoutes.urlPath(url.getId()));
             assertThat(response.code()).isEqualTo(200);
             var responseBody = response.body().string();
@@ -125,7 +125,7 @@ class MainTest {
 
     @Test
     void testUrlNotFound() {
-        JavalinTest.test(app, (((server, client) -> {
+        JavalinTest.test(app, (((serv, client) -> {
             var response = client.get(NamedRoutes.urlPath(99999L));
             assertThat(response.code()).isEqualTo(404);
         })));

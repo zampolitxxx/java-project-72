@@ -18,7 +18,7 @@ public class UrlFormatter {
         builder.append(uri.getHost());
         var port = uri.getPort();
 
-        if(port != -1) {
+        if (port != -1) {
             builder.append(":");
             builder.append(port);
         }

@@ -47,25 +47,25 @@ public class App {
 
     public static Javalin getApp() throws IOException, SQLException {
         Javalin app;
-            JavalinJte.init(createTemplateEngine());
+        JavalinJte.init(createTemplateEngine());
 
-            var hikariConfig = new HikariConfig();
-            hikariConfig.setJdbcUrl(getDatabaseUrl());
-            var dataSource = new HikariDataSource(hikariConfig);
-            var sql = readResourceFile("schema.sql");
-            try (var connection = dataSource.getConnection();
-                 var statement = connection.createStatement()) {
-                statement.execute(sql);
-            }
-            BaseRepositoty.dataSource = dataSource;
-            app = Javalin.create(config -> {
-                config.plugins.enableDevLogging();
-            });
-            app.get(NamedRoutes.rootPath(), RootController::index);
-            app.get(NamedRoutes.urlsPath(), UrlController::index);
-            app.post(NamedRoutes.urlsPath(), UrlController::create);
-            app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
-            app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
+        var hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl(getDatabaseUrl());
+        var dataSource = new HikariDataSource(hikariConfig);
+        var sql = readResourceFile("schema.sql");
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
+        BaseRepositoty.dataSource = dataSource;
+        app = Javalin.create(config -> {
+            config.plugins.enableDevLogging();
+        });
+        app.get(NamedRoutes.rootPath(), RootController::index);
+        app.get(NamedRoutes.urlsPath(), UrlController::index);
+        app.post(NamedRoutes.urlsPath(), UrlController::create);
+        app.get(NamedRoutes.urlPath("{id}"), UrlController::show);
+        app.post(NamedRoutes.urlChecksPath("{id}"), UrlCheckController::create);
 
         return app;
     }
