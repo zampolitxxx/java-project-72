@@ -6,53 +6,53 @@
 @template.layout.page(
 page = page,
 content = @`
-    <h1 class="display-5 mb-5">Сайт: ${page.getUrl().getName()}</h1>
-    <div class="table-responsive">
-        <table class="table table-dark table-hover">
-            <tbody>
-            <tr>
-                <td>ID</td>
-                <td>${page.getUrl().getId()}</td>
-            </tr>
-            <tr>
-                <td>Имя</td>
-                <td>${page.getUrl().getName()}</td>
-            </tr>
-            <tr>
-                <td>Дата создания</td>
-                <td>${page.getUrl().getCreatedAt().toString()}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <h2 class="display-5 mt-5 mb-3">Проверки</h2>
-    <form action="${NamedRoutes.urlChecksPath(page.getUrl().getId())}" method="post" class="rss-form text-body">
-        <button type="submit" class="btn btn-lg btn-primary mt-2">Запустить проверку</button>
-    </form>
-    <div class="table-responsive">
-        <table class="table table-dark table-hover">
-            <thead>
+    <section>
+        <div class="container-lg mt-5">
+            <h1>Сайт: ${page.getUrl().getName()}</h1>
+                <table class="table table-bordered table-hover mt-3">
+                    <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>${page.getUrl().getId()}</td>
+                    </tr>
+                    <tr>
+                        <td>Имя</td>
+                        <td>${page.getUrl().getName()}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>${page.getUrl().getCreatedAt().toString()}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            <h2 class="mt-5">Проверки</h2>
+            <form action="${NamedRoutes.urlChecksPath(page.getUrl().getId())}" method="post">
+                <button type="submit" class="btn btn-primary">Запустить проверку</button>
+            </form>
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Код ответа</th>
-                    <th scope="col">title</th>
-                    <th scope="col">h1</th>
-                    <th scope="col">description</th>
-                    <th scope="col">Дата проверки</th>
+                    <th class="col-1">ID</th>
+                    <th class="col-1">Код ответа</th>
+                    <th>title</th>
+                    <th>h1</th>
+                    <th>description</th>
+                    <th class="col-2">Дата проверки</th>
                 </tr>
-            </thead>
-            <tbody>
-            @for(var item : page.getUrlChecks())
-                <tr>
-                    <td>${item.getId()}</td>
-                    <td>${item.getStatusCode()}</td>
-                    <td>${item.getTitle()}</td>
-                    <td>${item.getH1()}</td>
-                    <td>${item.getDescription()}</td>
-                    <td>${item.getCreatedAt().toString()}</td>
-                </tr>
-            @endfor
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                @for(var item : page.getUrlChecks())
+                    <tr>
+                        <td>${item.getId()}</td>
+                        <td>${item.getStatusCode()}</td>
+                        <td>${item.getTitle()}</td>
+                        <td>${item.getH1()}</td>
+                        <td>${item.getDescription()}</td>
+                        <td>${item.getCreatedAt().toString()}</td>
+                    </tr>
+                @endfor
+                </tbody>
+            </table>
+        </div>
+    </section>
 `)

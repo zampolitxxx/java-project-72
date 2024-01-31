@@ -35,13 +35,13 @@
     </div>
 </nav>
 
-<main class="flex-grow-1">
-    @if(page != null && page.getFlashType() != null)
-        <div class="alert alert-${page.getFlashType().toString()}" role="alert">
-            ${page.getFlash()}
-        </div>
-    @endif
-    ${content}
+<main class="flex-grow-1 px-3">
+        @if(page != null && page.getFlashType() != null)
+            <div class="alert alert-${page.getFlashType().toString()}" role="alert">
+                ${page.getFlash()}
+            </div>
+        @endif
+        ${content}
 </main>
 
 <footer class="footer border-top py-3 mt-5 bg-light">
