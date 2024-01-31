@@ -13,6 +13,8 @@ content = @`
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Последняя проверка</th>
+                <th scope="col">Код ответа</th>
             </tr>
             </thead>
             <tbody>
