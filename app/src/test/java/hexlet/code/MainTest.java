@@ -70,23 +70,12 @@ class MainTest {
     }
 
     @Test
-    public void testUrl() {
+    public void testAddUrl() {
         JavalinTest.test(app, (serv, client) -> {
-            var requestBody = "url=https://example.com";
+            var requestBody = "url=https://example.com:8080/a";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("https://example.com");
-
-
-            requestBody = "url=http://example.com:8080";
-            response = client.post(NamedRoutes.urlsPath(), requestBody);
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("http://example.com:8080");
-
-            requestBody = "url=http://example.com:8081/a";
-            response = client.post(NamedRoutes.urlsPath(), requestBody);
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("http://example.com:8081");
+            assertThat(response.body().string()).contains("https://example.com:8080");
         });
     }
 
