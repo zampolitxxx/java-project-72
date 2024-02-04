@@ -80,7 +80,7 @@ class MainTest {
     }
 
     @Test
-    public void testBadUrl() {
+    public void testAddBadUrl() {
         JavalinTest.test(app, (serv, client) -> {
             var requestBody = "url=badUrl.com";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
