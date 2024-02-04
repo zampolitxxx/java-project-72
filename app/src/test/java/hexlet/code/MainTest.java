@@ -50,11 +50,7 @@ class MainTest {
 
     @BeforeEach
     public void setUp() throws IOException, SQLException {
-        try {
-            app = App.getApp();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        app = App.getApp();
     }
 
     private static String readFixt(String fileName) throws IOException {
