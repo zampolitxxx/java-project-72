@@ -32,9 +32,9 @@ class MainTest {
         server = new MockWebServer();
 
         MockResponse mockedResponse1 = new MockResponse()
-                .setBody(readFixt("urlCheck1.html")).setResponseCode(200);
+                .setBody(readFixtures("urlCheck1.html")).setResponseCode(200);
         MockResponse mockedResponse2 = new MockResponse()
-                .setBody(readFixt("urlCheck2.html")).setResponseCode(200);
+                .setBody(readFixtures("urlCheck2.html")).setResponseCode(200);
         MockResponse mockedResponse3 = new MockResponse().setResponseCode(404);
 
         server.enqueue(mockedResponse1);
@@ -53,7 +53,7 @@ class MainTest {
         app = App.getApp();
     }
 
-    private static String readFixt(String fileName) throws IOException {
+    private static String readFixtures(String fileName) throws IOException {
         Path filePath = Paths.get("src", "test", "resources", "fixtures", fileName)
                 .toAbsolutePath().normalize();
         return Files.readString(filePath).trim();
