@@ -5,11 +5,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum FlashEnum {
-    success("success"),
-    danger("danger"),
-    info("info"),
-    light("light"),
-    dark("dark");
+    success("SUCCESS"),
+    danger("DANGER"),
+    info("INFO"),
+    light("LIGHT"),
+    dark("DARK");
 
     private final String type;
 
