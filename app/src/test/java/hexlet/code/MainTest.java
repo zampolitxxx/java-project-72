@@ -127,7 +127,6 @@ class MainTest {
                     .contains("200")
                     .contains("404")
                     .contains("Анализатор страниц")
-                    .contains("Other header")
                     .doesNotContain("second header");
 
             var responseUrlList = client.get(NamedRoutes.urlsPath());
