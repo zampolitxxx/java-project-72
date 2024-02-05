@@ -81,7 +81,7 @@ class MainTest {
     }
 
     @Test
-    public void testUrlExistsInDB() throws SQLException {
+    public void testUrlExistsInDB() {
         JavalinTest.test(app, (serv, client) -> {
             var requestBody = "url=https://example.com";
             client.post(NamedRoutes.urlsPath(), requestBody);
@@ -90,7 +90,7 @@ class MainTest {
     }
 
     @Test
-    public void testCheckListOfUrls() throws SQLException {
+    public void testCheckListOfUrls() {
         JavalinTest.test(app, (serv, client) -> {
             List<String> list = List.of("https://example1.com", "https://example2.com");
             for (String val : list) {
@@ -102,6 +102,42 @@ class MainTest {
                 assertThat(list.contains(em.getName())).isTrue();
             }
         });
+    }
+
+    @Test
+    public void testUrlCheck() throws SQLException {
+        var url = new Url(server.url("").toString(), Timestamp.from(ZonedDateTime.now().toInstant()));
+        UrlRepository.save(url);
+
+        JavalinTest.test(app, ((server1, client) -> {
+            var response1 = client.post(NamedRoutes.urlChecksPath(url.getId()));
+            assertThat(response1.code()).isEqualTo(200);
+
+            var response2 = client.post(NamedRoutes.urlChecksPath(url.getId()));
+            assertThat(response2.code()).isEqualTo(200);
+
+            var response3 = client.post(NamedRoutes.urlChecksPath(url.getId()));
+            assertThat(response3.code()).isEqualTo(200);
+
+            var responseUrlDetail = client.get(NamedRoutes.urlPath(url.getId()));
+            assertThat(responseUrlDetail.code()).isEqualTo(200);
+
+            var responseBody = responseUrlDetail.body().string();
+            assertThat(responseBody)
+                    .contains("200")
+                    .contains("404")
+                    .contains("Анализатор страниц")
+                    .contains("Other header")
+                    .doesNotContain("second header");
+
+            var responseUrlList = client.get(NamedRoutes.urlsPath());
+            assertThat(responseUrlList.code()).isEqualTo(200);
+            var responseBodyList = responseUrlList.body().string();
+
+            assertThat(responseBodyList)
+                    .contains("404")
+                    .doesNotContain("200");
+        }));
     }
 
     @Test
