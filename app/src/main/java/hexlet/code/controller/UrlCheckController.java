@@ -45,11 +45,11 @@ public class UrlCheckController {
             }
 
             ctx.sessionAttribute("flash", SUCCESSFUL_MESSAGE);
-            ctx.sessionAttribute("flashType", FlashEnum.success.toString());
+            ctx.sessionAttribute("flashType", FlashEnum.SUCCESS.getType().toUpperCase());
         } catch (UnirestException e) {
             System.out.println(e);
             ctx.sessionAttribute("flash", ERROR_MESSAGE);
-            ctx.sessionAttribute("flashType", FlashEnum.danger.toString());
+            ctx.sessionAttribute("flashType", FlashEnum.DANGER.getType().toUpperCase());
         }
         ctx.redirect(NamedRoutes.urlPath(url.getId()));
     }

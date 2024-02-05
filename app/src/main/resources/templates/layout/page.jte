@@ -37,7 +37,7 @@
 
 <main class="flex-grow-1 px-3">
         @if(page != null && page.getFlashType() != null)
-            <div class="alert alert-${page.getFlashType().toString()}" role="alert">
+            <div class="alert alert-${page.getFlashType().getType()}" role="alert">
                 ${page.getFlash()}
             </div>
         @endif

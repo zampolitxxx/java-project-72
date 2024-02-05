@@ -35,14 +35,14 @@ public class UrlController {
             formattedURL = UrlFormatter.formatURL(name);
         } catch (IllegalArgumentException | URISyntaxException e) {
             ctx.sessionAttribute("flash", ERROR_FLASH_MESSAGE);
-            ctx.sessionAttribute("flashType", FlashEnum.danger.toString());
+            ctx.sessionAttribute("flashType", FlashEnum.DANGER.getType().toUpperCase());
             ctx.redirect(NamedRoutes.rootPath());
             return; //formattedURL not initialized
         }
         // Если сайт уже есть в БД
         if (UrlRepository.exists(formattedURL)) {
             ctx.sessionAttribute("flash", URL_EXISTS_FLASH_MESSAGE);
-            ctx.sessionAttribute("flashType", FlashEnum.info.toString());
+            ctx.sessionAttribute("flashType", FlashEnum.INFO.getType().toUpperCase());
             ctx.redirect(NamedRoutes.urlsPath());
             return;
         }
@@ -52,7 +52,7 @@ public class UrlController {
 
         UrlRepository.save(url);
         ctx.sessionAttribute("flash", URL_SAVED_FLASH_MESSAGE);
-        ctx.sessionAttribute("flashType", FlashEnum.success.toString());
+        ctx.sessionAttribute("flashType", FlashEnum.SUCCESS.getType().toUpperCase());
         ctx.redirect(NamedRoutes.urlsPath());
     }
 
