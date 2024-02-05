@@ -16,12 +16,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.*;
 
 class MainTest {
 
@@ -86,6 +86,19 @@ class MainTest {
             var requestBody = "url=https://example.com";
             client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(UrlRepository.exists(requestBody.substring(4))).isTrue();
+        });
+    }
+
+    @Test
+    public void testCheckListOfUrls() throws SQLException {
+        JavalinTest.test(app, (serv, client) -> {
+            var requestBody1 = "url=https://example1.com";
+//            var requestBody2 = "url=https://example2.com";
+            client.post(NamedRoutes.urlsPath(), requestBody1);
+//            client.post(NamedRoutes.urlsPath(), requestBody2);
+            List<Url> res = UrlRepository.getEntities();
+//            assertThat(res).contains(requestBody1.substring(4));
+            var a = 1;
         });
     }
 
