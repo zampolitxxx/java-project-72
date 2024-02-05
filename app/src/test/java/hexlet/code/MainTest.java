@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 class MainTest {
 
@@ -76,6 +77,15 @@ class MainTest {
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
             assertThat(response.body().string()).contains("https://example.com:8080");
+        });
+    }
+
+    @Test
+    public void testUrlExistsInDB() throws SQLException {
+        JavalinTest.test(app, (serv, client) -> {
+            var requestBody = "url=https://example.com";
+            client.post(NamedRoutes.urlsPath(), requestBody);
+            assertThat(UrlRepository.exists(requestBody.substring(4))).isTrue();
         });
     }
 
