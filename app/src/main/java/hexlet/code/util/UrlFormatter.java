@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 
 public class UrlFormatter {
     public static String formatURL(String url) throws URISyntaxException {
-        var uri = new URI(url).normalize();
+        var uri = new URI(url.strip()).normalize();
         try {
             uri.toURL();
         } catch (MalformedURLException e) {
