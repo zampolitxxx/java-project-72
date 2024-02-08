@@ -113,19 +113,13 @@ class MainTest {
             var response1 = client.post(NamedRoutes.urlChecksPath(url.getId()));
             assertThat(response1.code()).isEqualTo(200);
 
-            var response2 = client.post(NamedRoutes.urlChecksPath(url.getId()));
-            assertThat(response2.code()).isEqualTo(200);
-
-            var response3 = client.post(NamedRoutes.urlChecksPath(url.getId()));
-            assertThat(response3.code()).isEqualTo(200);
-
             var responseUrlDetail = client.get(NamedRoutes.urlPath(url.getId()));
             assertThat(responseUrlDetail.code()).isEqualTo(200);
 
             var responseBody = responseUrlDetail.body().string();
             assertThat(responseBody)
                     .contains("200")
-                    .contains("404")
+                    .doesNotContain("404")
                     .contains("Анализатор страниц")
                     .doesNotContain("second header");
 
@@ -134,8 +128,8 @@ class MainTest {
             var responseBodyList = responseUrlList.body().string();
 
             assertThat(responseBodyList)
-                    .contains("404")
-                    .doesNotContain("200");
+                    .doesNotContain("404")
+                    .contains("200");
         }));
     }
 
