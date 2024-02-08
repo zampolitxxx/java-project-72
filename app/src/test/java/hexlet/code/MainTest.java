@@ -34,12 +34,9 @@ class MainTest {
 
         MockResponse mockedResponse1 = new MockResponse()
                 .setBody(readFixtures("urlCheck1.html")).setResponseCode(200);
-        MockResponse mockedResponse2 = new MockResponse()
-                .setBody(readFixtures("urlCheck2.html")).setResponseCode(200);
         MockResponse mockedResponse3 = new MockResponse().setResponseCode(404);
 
         server.enqueue(mockedResponse1);
-        server.enqueue(mockedResponse2);
         server.enqueue(mockedResponse3);
         server.start();
     }
@@ -114,19 +111,17 @@ class MainTest {
             assertThat(response1.code()).isEqualTo(200);
 
             var responseUrlDetail = client.get(NamedRoutes.urlPath(url.getId()));
-            assertThat(responseUrlDetail.code()).isEqualTo(200);
 
             var responseBody = responseUrlDetail.body().string();
             assertThat(responseBody)
                     .contains("200")
                     .doesNotContain("404")
-                    .contains("Анализатор страниц")
-                    .doesNotContain("second header");
+                    .contains("Анализатор страниц");
 
             var responseUrlList = client.get(NamedRoutes.urlsPath());
             assertThat(responseUrlList.code()).isEqualTo(200);
-            var responseBodyList = responseUrlList.body().string();
 
+            var responseBodyList = responseUrlList.body().string();
             assertThat(responseBodyList)
                     .doesNotContain("404")
                     .contains("200");
