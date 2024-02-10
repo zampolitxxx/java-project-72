@@ -68,21 +68,16 @@ class MainTest {
     }
 
     @Test
-    public void testAddUrl() {
+    public void testAddUrlAndCheckDB() {
         JavalinTest.test(app, (serv, client) -> {
-            var requestBody = "url=https://example.com:8080/a";
+            var requestBody = "url=https://example.com:8080/asdf";
+            final Integer INDEX_OF_BEGINNING_ADDRESS = 4;
+            final Integer INDEX_OF_FIRST_SLASH = 13;
+            var expectedResponse = requestBody.substring(INDEX_OF_BEGINNING_ADDRESS, requestBody.indexOf("/", INDEX_OF_FIRST_SLASH));
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("https://example.com:8080");
-        });
-    }
-
-    @Test
-    public void testUrlExistsInDB() {
-        JavalinTest.test(app, (serv, client) -> {
-            var requestBody = "url=https://example.com";
-            client.post(NamedRoutes.urlsPath(), requestBody);
-            assertThat(UrlRepository.exists(requestBody.substring(4))).isTrue();
+            assertThat(response.body().string()).contains(expectedResponse);
+            assertThat(UrlRepository.exists(expectedResponse)).isTrue();
         });
     }
 
