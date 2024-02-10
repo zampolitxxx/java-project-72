@@ -13,17 +13,7 @@ public class UrlCheckRepository extends BaseRepositoty {
             INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
             VALUES(?,?,?,?,?,?);
             """;
-    private static final String FETCH_ALL_BY_URL_ID_TEMPLATE = """
-            SELECT
-            id,
-            url_id,
-            status_code,
-            h1,
-            title,
-            description,
-            created_at
-            FROM url_checks WHERE url_id = ?;
-            """;
+    private static final String FETCH_ALL_BY_URL_ID_TEMPLATE = "SELECT * FROM url_checks WHERE url_id = ?;";
     public static List<UrlCheck> filterByUrlId(Long urlId) throws SQLException {
         try (var conn = dataSource.getConnection();
             var prepareStatement = conn.prepareStatement(FETCH_ALL_BY_URL_ID_TEMPLATE)) {
