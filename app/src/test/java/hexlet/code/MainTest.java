@@ -99,6 +99,7 @@ class MainTest {
 
     @Test
     public void testUrlCheck() throws SQLException {
+        String urlss = server.url("/").toString();
         var url = new Url(server.url("").toString(), Timestamp.from(ZonedDateTime.now().toInstant()));
         UrlRepository.save(url);
 
