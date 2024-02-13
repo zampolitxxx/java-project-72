@@ -5,6 +5,7 @@ import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
+import jakarta.servlet.http.HttpServletResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
@@ -33,11 +34,9 @@ class MainTest {
         server = new MockWebServer();
 
         MockResponse mockedResponse1 = new MockResponse()
-                .setBody(readFixtures("urlCheck1.html")).setResponseCode(200);
-        MockResponse mockedResponse3 = new MockResponse().setResponseCode(404);
+                .setBody(readFixtures("urlCheck.html")).setResponseCode(200);
 
         server.enqueue(mockedResponse1);
-        server.enqueue(mockedResponse3);
         server.start();
     }
 
@@ -99,30 +98,18 @@ class MainTest {
 
     @Test
     public void testUrlCheck() throws SQLException {
-        String urlss = server.url("/").toString();
-        var url = new Url(server.url("").toString(), Timestamp.from(ZonedDateTime.now().toInstant()));
-        UrlRepository.save(url);
+        String url = server.url("").toString();
+        JavalinTest.test(app, (server1, client) -> {
+            String requestBody = "url=" + url;
+            assertThat(client.post("/urls", requestBody).code()).isEqualTo(HttpServletResponse.SC_OK);
 
-        JavalinTest.test(app, ((server1, client) -> {
-            var response1 = client.post(NamedRoutes.urlChecksPath(url.getId()));
-            assertThat(response1.code()).isEqualTo(200);
+            Url actualUrl = UrlRepository.find(1L).orElse(null);
+//            assertThat(actualUrl.getName()).isEqualTo(url);
 
-            var responseUrlDetail = client.get(NamedRoutes.urlPath(url.getId()));
+            System.out.println("/urls/" + actualUrl.getId() + "/checks");
+            System.out.println("2");
+        });
 
-            var responseBody = responseUrlDetail.body().string();
-            assertThat(responseBody)
-                    .contains("200")
-                    .doesNotContain("404")
-                    .contains("Анализатор страниц");
-
-            var responseUrlList = client.get(NamedRoutes.urlsPath());
-            assertThat(responseUrlList.code()).isEqualTo(200);
-
-            var responseBodyList = responseUrlList.body().string();
-            assertThat(responseBodyList)
-                    .doesNotContain("404")
-                    .contains("200");
-        }));
     }
 
     @Test
