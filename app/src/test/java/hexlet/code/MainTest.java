@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.model.Url;
+import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.Javalin;
@@ -98,16 +99,21 @@ class MainTest {
 
     @Test
     public void testUrlCheck() throws SQLException {
-        String url = server.url("").toString();
+        String url = server.url("/").toString().replaceAll("/$", "");
         JavalinTest.test(app, (server1, client) -> {
             String requestBody = "url=" + url;
             assertThat(client.post("/urls", requestBody).code()).isEqualTo(HttpServletResponse.SC_OK);
 
             Url actualUrl = UrlRepository.find(1L).orElse(null);
-//            assertThat(actualUrl.getName()).isEqualTo(url);
+            assertThat(actualUrl.getName()).isEqualTo(url);
 
-            System.out.println("/urls/" + actualUrl.getId() + "/checks");
-            System.out.println("2");
+            client.post("/urls/" + actualUrl.getId() + "/checks");
+            var actualCheck = UrlCheckRepository.filterByUrlId(actualUrl.getId()).stream()
+                    .findFirst().get();
+            assertThat(actualCheck).isNotNull();
+            assertThat(actualCheck.getTitle()).isEqualTo("Анализатор страниц");
+            assertThat(actualCheck.getH1()).isEqualTo("It is header h1");
+            assertThat(actualCheck.getDescription()).isEqualTo("It is a content for description");
         });
 
     }
