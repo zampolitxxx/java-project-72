@@ -15,7 +15,8 @@ public class UrlRepository extends BaseRepositoty {
             url_checks.created_at AS last_check_date,
             status_code AS last_check_status_code
             FROM urls JOIN url_checks
-            ON urls.id = url_checks.url_id;""";
+            ON urls.id = url_checks.url_id
+            ORDER BY id DESC LIMIT 1;""";
     private static final  String CHECK_IF_EXISTS = "SELECT 1 FROM urls WHERE name = ?;";
     private static final String SAVE_ONE = "INSERT INTO urls (name, created_at) VALUES (?, ?);";
     private static final String FETCH_ONE_TEMPLATE = "SELECT id, name, created_at FROM urls WHERE id = ? LIMIT 1;";
@@ -57,6 +58,7 @@ public class UrlRepository extends BaseRepositoty {
                 Url url = getUrlModelForEntities(resultSet);
                 result.add(url);
             }
+            var a = 2;
             return result;
         }
     }
