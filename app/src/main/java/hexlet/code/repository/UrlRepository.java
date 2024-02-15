@@ -13,8 +13,8 @@ public class UrlRepository extends BaseRepositoty {
     private static final String FETCH_ALL = """
             SELECT urls.id, name, urls.created_at,
             url_checks.created_at AS last_check_date,
-            status_code AS last_check_status_code
-            FROM urls JOIN url_checks
+            status_code AS last_check_status_code FROM urls
+            LEFT JOIN url_checks
             ON urls.id = url_checks.url_id
             ORDER BY id DESC LIMIT 1;""";
     private static final  String CHECK_IF_EXISTS = "SELECT 1 FROM urls WHERE name = ?;";
