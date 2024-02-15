@@ -10,7 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class UrlRepository extends BaseRepositoty {
-    private static final String FETCH_ALL = "SELECT urls.id, name, urls.created_at, url_checks.created_at AS last_check_date, status_code AS last_check_status_code FROM urls JOIN url_checks ON urls.id = url_checks.url_id;";
+    private static final String FETCH_ALL = """
+            SELECT urls.id, name, urls.created_at,
+            url_checks.created_at AS last_check_date,
+            status_code AS last_check_status_code
+            FROM urls JOIN url_checks
+            ON urls.id = url_checks.url_id;""";
     private static final  String CHECK_IF_EXISTS = "SELECT 1 FROM urls WHERE name = ?;";
     private static final String SAVE_ONE = "INSERT INTO urls (name, created_at) VALUES (?, ?);";
     private static final String FETCH_ONE_TEMPLATE = "SELECT id, name, created_at FROM urls WHERE id = ? LIMIT 1;";
