@@ -98,7 +98,7 @@ class MainTest {
     }
 
     @Test
-    public void testUrlCheck() throws SQLException {
+    public void testUrlCheck() {
         String url = server.url("/").toString().replaceAll("/$", "");
         JavalinTest.test(app, (server1, client) -> {
             String requestBody = "url=" + url;

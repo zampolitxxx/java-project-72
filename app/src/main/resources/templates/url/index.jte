@@ -25,7 +25,7 @@ content = @`
                             <td>${item.getId()}</td>
                             <td><a href="${NamedRoutes.urlPath(item.getId())}">${item.getName()}</a></td>
                             @if(item.getLastCheckDate() != null)
-                                <td>${item.getLastCheckDate().toString()}</td>
+                                <td>${item.getLastCheckDate().toString().substring(0, 19)}</td>
                             @else
                                 <td></td>
                             @endif

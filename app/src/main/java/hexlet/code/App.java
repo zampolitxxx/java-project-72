@@ -35,7 +35,6 @@ public class App {
     private static String getDatabaseUrl() {
         return System.getenv()
                 .getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
-//        .getOrDefault("JDBC_DATABASE_URL", "jdbc:postgresql://localhost:5432/hexlet?password=1234567&user=zampolit");
     }
 
 

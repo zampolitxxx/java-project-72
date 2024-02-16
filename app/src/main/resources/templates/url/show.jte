@@ -21,7 +21,7 @@ content = @`
                     </tr>
                     <tr>
                         <td>Дата создания</td>
-                        <td>${page.getUrl().getCreatedAt().toString()}</td>
+                        <td>${page.getUrl().getCreatedAt().toString().substring(0, 19)}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -48,7 +48,7 @@ content = @`
                         <td>${item.getTitle()}</td>
                         <td>${item.getH1()}</td>
                         <td>${item.getDescription()}</td>
-                        <td>${item.getCreatedAt().toString()}</td>
+                        <td>${item.getCreatedAt().toString().substring(0, 19)}</td>
                     </tr>
                 @endfor
                 </tbody>
