@@ -14,8 +14,6 @@ import org.jsoup.Jsoup;
 
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 
 public class UrlCheckController {
     private static final String ERROR_MESSAGE = "Некорректный адрес";
@@ -34,9 +32,8 @@ public class UrlCheckController {
             var h1 = h1Element != null ? h1Element.text() : "";
             var title = body.title();
             var description = descriptionElement != null ? descriptionElement.attr("content") : "";
-            var ts = Timestamp.from(ZonedDateTime.now().toInstant());
 
-            var urlCheck = new UrlCheck(id, status, title, h1, description, ts);
+            var urlCheck = new UrlCheck(id, status, title, h1, description);
 
             try {
                 UrlCheckRepository.save(urlCheck);

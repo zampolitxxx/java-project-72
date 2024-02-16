@@ -136,7 +136,9 @@ class MainTest {
 
     @Test
     public void testUrlPage() throws SQLException {
-        var url = new Url("https://example.com", Timestamp.from(ZonedDateTime.now().toInstant()));
+        var url = new Url("https://example.com");
+        var ts = Timestamp.from(ZonedDateTime.now().toInstant());
+        url.setCreatedAt(ts);
         UrlRepository.save(url);
 
         JavalinTest.test(app, (serv, client) -> {

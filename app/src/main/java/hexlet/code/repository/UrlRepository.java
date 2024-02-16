@@ -5,6 +5,8 @@ import hexlet.code.model.Url;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,8 @@ public class UrlRepository extends BaseRepositoty {
     }
 
     public static void save(Url url) throws SQLException {
+        var ts = Timestamp.from(ZonedDateTime.now().toInstant());
+        url.setCreatedAt(ts);
         try (var conn = dataSource.getConnection();
             var prepareStatement = conn.prepareStatement(SAVE_ONE, Statement.RETURN_GENERATED_KEYS)) {
             prepareStatement.setString(1, url.getName());
@@ -98,7 +102,8 @@ public class UrlRepository extends BaseRepositoty {
         var id = resultSet.getLong("id");
         var name = resultSet.getString("name");
         var createdAt = resultSet.getTimestamp("created_at");
-        Url url = new Url(name, createdAt);
+        Url url = new Url(name);
+        url.setCreatedAt(createdAt);
         url.setId(id);
         return url;
     }

@@ -15,8 +15,6 @@ import io.javalin.http.NotFoundResponse;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
@@ -47,8 +45,7 @@ public class UrlController {
             return;
         }
 
-        var ts = Timestamp.from(ZonedDateTime.now().toInstant());
-        var url = new Url(formattedURL, ts);
+        var url = new Url(formattedURL);
 
         UrlRepository.save(url);
         ctx.sessionAttribute("flash", URL_SAVED_FLASH_MESSAGE);

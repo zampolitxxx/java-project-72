@@ -5,6 +5,8 @@ import hexlet.code.model.UrlCheck;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class UrlCheckRepository extends BaseRepositoty {
         }
     }
     public static void save(UrlCheck urlCheck) throws SQLException {
+        var ts = Timestamp.from(ZonedDateTime.now().toInstant());
+        urlCheck.setCreatedAt(ts);
         try (var conn = dataSource.getConnection();
             var prepareStatement = conn.prepareStatement(SAVE_ONE_TEMPLATE, Statement.RETURN_GENERATED_KEYS)) {
             prepareStatement.setLong(1, urlCheck.getUrlId());
@@ -61,8 +65,9 @@ public class UrlCheckRepository extends BaseRepositoty {
         var description = resultSet.getString("description");
         var createdAt = resultSet.getTimestamp("created_at");
 
-        UrlCheck urlCheck = new UrlCheck(urlId, statusCode, title, h1, description, createdAt);
+        UrlCheck urlCheck = new UrlCheck(urlId, statusCode, title, h1, description);
         urlCheck.setId(id);
+        urlCheck.setCreatedAt(createdAt);
         return urlCheck;
     }
 }
